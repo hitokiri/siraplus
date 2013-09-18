@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block titulo %}
+	{{vista}}
+{% endblock titulo %}
+{% block jqueriui %}
+	<script type="text/javascript" src= "{{STATIC_URL}}js/jquery.ui.datepicker.js "></script>
+	<script type="text/javascript" src= "{{STATIC_URL}}js/panaderia.js "></script>
+	<script type="text/javascript" src= "{{STATIC_URL}}js/jquery.ui.tooltip.js "></script>
+	<script type="text/javascript" src= "{{STATIC_URL}}js/jquery.maskedinput.js "></script>
+{% endblock jqueriui %}
+{% block contenido %}
+<div class="row-fluid">
+	<div class="span6">
+		<br>
+		<br>
+		<br>
+		<br>
+		<form action="" method='post'>{%csrf_token%}
+<!--
+		{{formulario.quesadilla_normal.errors}}
+		{{formulario.quesadilla_normal.label}}
+		{{formulario.quesadilla_normal}}-->
+		<!-- muestra todos los errores de el formulario
+			formulario.errors               -->
+		Fecha de Entrega <br>
+		{{formulario.fecha_entrega.errors}}
+		{{formulario.fecha_entrega.lable}}
+		{{formulario.fecha_entrega}}
+
+		<hr>
+		<table>
+			<tr>
+				{% for producto in productos %}
+					<td>{{producto.nombre}}</td>
+				{% endfor %}
+			</tr>
+			<tr>
+				{% for  form in  formset %}
+						{{formset.management_form}}
+					<td>
+						{{form.cantidad.errors}}
+						{{form.cantidad}}
+					</td>
+				{% endfor %}
+
+
+		<!--{{formset.errors}} muestra todos los errores de el formset-->
+
+			</tr>
+		</table>
+
+		<input type="submit" value="enviar" class="btn">
+		</form>
+
+
+	</div>
+
+</div>
+
+{% endblock contenido %}

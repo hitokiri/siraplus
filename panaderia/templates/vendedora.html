@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block titulo %}{{ista}}{% endblock titulo %}
+	{% block jqueriui %}
+	<script type="text/javascript" src= "{{STATIC_URL}}js/jquery.ui.datepicker.js "></script>
+	<script type="text/javascript" src= "{{STATIC_URL}}js/panaderia.js "></script>
+	<script type="text/javascript" src= "{{STATIC_URL}}js/jquery.ui.tooltip.js "></script>
+	<script type="text/javascript" src= "{{STATIC_URL}}js/jquery.maskedinput.js "></script>
+	{% endblock jqueriui %}
+{% block contenido %}
+<br>
+<br>
+<br>
+<br>
+<br>
+	<form action="" method='post' enctype="multipart/form-data" >{%csrf_token%}
+		{{formulario}}
+		<footer id="footer" class =" navbar-fixed-bottom">
+					<div class="container">
+						<div class="row-fluid">
+							<input type="submit" value="enviar" class="btn">
+						</div>
+					</div>
+			</footer>
+	</form>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock contenido %}
+

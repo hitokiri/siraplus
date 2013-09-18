@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block contenido %}
+{% regroup pedido by tipo  as todo  %}
+	<table class ='pizarra'>
+				<tr class='cabeza'>
+					<td>Nombre</td>
+					<td>Quesadilla Especial</td>
+					<td>Quesadilla Normal</td>
+					<td>Torta de Azucar</td>
+					<td>Torta de Yema</td>
+				</tr>
+				{% for todos in todo  %}
+					<tr>
+						<td>{{todos.grouper.cliente}}</td>
+						{% for prod in todos.list  %}
+							<td>{{prod.cantidad}}</td>
+						{% endfor %}
+
+					</tr>
+				{% endfor %}
+			</table>
+			<br><br>
+			<form action="" method = 'post'> {%csrf_token%}
+				<table>
+					<tr>
+						{% for producto in pedido %}
+							<td>{{producto.producto}}</td>
+						{% endfor %}
+				    </tr>
+					<tr>
+							{% for  form in  formset %}
+								{{formset.management_form}}
+						<td>
+								{{form.errors}}
+								{{form.cantidad.errors}}
+								{{form.cantidad}}
+						</td>
+					{% endfor %}
+
+
+
+				</tr>
+			</table>
+			<input type="submit" value="Pagar">
+			</form>
+			<br>
+			<br>
+			<br>
+			{{deusadppa}}
+			{% for lols in prod_deuda  %}
+				{{lols.tipo}}
+			{% endfor %}
+		{{formset.non_form_errors}}
+		{{formset.errors}} muestra todos los errores de el formset
+{% endblock contenido %}

@@ -1,0 +1,245 @@
+header {
+
+	padding: .5em 0em .5em 0;
+	color: white;
+	background-color: black;
+	width: 100%;
+	/*border-bottom: solid gray 3px;*/
+	box-shadow:
+	0 0 0 2px #000,
+	0 0 0 3px #999,
+	0 0 0 9px #fa0,
+	0 0 0 10px #666,
+	0 0 0 16px #fd0,
+	0 0 0 18px #000;
+}
+header #nombreSistema{
+	display: inline-block;
+	margin-left: 2em;
+}
+
+
+hr {
+  box-shadow: 0 0 0.9px rgba(0,0,0,.5)
+}
+/*area de  declaracion de Id*/
+
+#datos {
+	text-align: right;
+	width: 65%;
+	display: inline-block;
+
+}
+
+#logo {
+	display: inline-block;
+	width: 20%;
+	display: inline-block;
+	background-color: green;
+}
+
+#titulo {
+	font-weight: bold;
+	width: 20%;
+	display: inline-block;
+
+}
+
+/*Area de creacion de clases */
+
+/*Area de creacion de clases */
+.contenido{
+	margin: 4em 0 6em 0 ;
+/*	box-shadow: 0px 0px 10px rgba(0,0,0,.5);*/
+
+}
+/*.sub-divisiones:last-child,
+.sub-divisiones:nth-child(3){
+	height:23em;
+}*/
+.inscripcion{
+	max-width: 400px;
+	margin: 0 0 0 0;
+}
+
+.container .credit {
+    margin: 20px 0;
+}
+#push,
+#footer {
+    height: 60px;
+}
+#footer {
+	background-color: silver;
+}
+.divisiones{
+	width: 90%;
+}
+.sub-divisiones{
+	width: 49%;
+	height: 35em;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+}
+.boton-solo{
+ clear: both;
+}
+.campos{
+	height: 90%;
+	width: 50%;
+	margin: 0;
+	padding: 0;
+
+}
+.campos input{
+	display: inline-block;
+
+}
+#id_dpsicologico,
+#id_edireccion,
+#id_mdireccion,
+#id_pdireccion,
+#id_lnacimiento,
+#id_direccion{
+	max-width: 100%;
+	width: 80%;
+	height: 8em;
+}
+
+#pagina{
+	background-color: red;
+}
+/*tooltip opciones para las ayudas de llenado de campos
+*/
+.ui-tooltip, .arrow:after {
+    background: #2C3E50;
+    border: 2px solid white;
+  }
+.ui-tooltip {
+    padding: 10px 20px;
+    color: white;
+    border-radius: 8px;
+    font: bold 14px "Helvetica Neue", Sans-Serif;
+    box-shadow: 0 0 7px black;
+}
+.arrow {
+    width: 70px;
+    height: 16px;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin-left: -35px;
+    bottom: -16px;
+}
+.arrow.top {
+    top: -16px;
+    bottom: auto;
+}
+  .arrow.left {
+    left: 20%;
+}
+.arrow:after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: -20px;
+    width: 25px;
+    height: 25px;
+    box-shadow: 6px 5px 9px -9px black;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    tranform: rotate(45deg);
+  }
+.arrow.top:after {
+    bottom: -20px;
+    top: auto;
+}
+
+  /*listar vendedoras*/
+
+.negrito{
+    font-weight: bold;
+    font-size: 1em;
+    margin-right: .5em;
+    text-decoration: underline;
+ }
+
+.lineas{
+    width: 50px;
+ }
+.postic{
+  box-shadow: 0px 3px 3px 1px rgba(0,0,0,.5);
+  border-radius: 6px 6px 0 0;
+
+ }
+.cabeza{
+  background-color: #34495E;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  border-radius: 6px 6px 0 0;
+}
+/*vista editar*/
+
+
+
+/*vista pizarra*/
+
+.pizarra {
+  width: 100%;
+  border: 1px solid #cef;
+  text-align:center;
+}
+
+.pizarra tr:nth-child(2n+1) {
+  font-weight: bold;
+  background-color: #acf;
+  border-bottom: 1px solid #cef;
+}
+.pizarra td,th {
+  padding: 2px 2px;
+}
+ .cabeza td{
+  font-weight: normal;
+  font-size: .8em;
+  background-color: #143355;
+}
+
+.fondo2{
+  padding: .2em;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 3px 6px 12px rgba(0,0,0,.5);
+}
+.titulo{
+  text-decoration: underline;
+}
+/*login*/
+.login{
+  max-width: 35%;
+  box-shadow: 3px 6px 12px rgba(0,0,0,.5);
+  border-radius: 8px;
+}
+.datos_login{
+  padding: 3em 0 3em 7em;
+}
+.error_login{
+max-width: 30%;
+}
+.login_logout{
+  color: white;
+  padding-top: .7em;
+}
+.user_login{
+  text-align: right;
+}
+/*pizarra entrega*/
+.campo-entrega{
+    margin-bottom: 0;
+    padding-bottom: 0;
+}

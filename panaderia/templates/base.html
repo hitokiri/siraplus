@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html lang="es_SV">
+<head>
+	<meta charset="UTF-8">
+	<title>{%block titulo%} Panaderia {%endblock%} </title>
+	<script type="text/javascript" src= "{{STATIC_URL}}js/bootstrap.js"></script>
+	<script type="text/javascript" src= "{{STATIC_URL}}js/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src= "{{STATIC_URL}}js/jquery.ui.core.js"></script>
+	<script type="text/javascript" src= "{{STATIC_URL}}js/jquery.ui.widget.js "></script>
+	<script type="text/javascript" src= "{{STATIC_URL}}js/jquery.ui.position.js "></script>
+	<script type="text/javascript" src= "{{STATIC_URL}}js/bootstrap-dropdown.js "></script>
+	{% block jqueriui %}{% endblock jqueriui %}
+	{% block escript_extras %}{% endblock escript_extras %}
+	<link rel="stylesheet" href="{{STATIC_URL}}css/jquery.ui.all.css">
+	<link rel="stylesheet" href="{{STATIC_URL}}css/base.css">
+	<link rel="stylesheet" href="{{STATIC_URL}}css/bootstrap-responsive.css">
+	<link rel="stylesheet" href="{{STATIC_URL}}css/bootstrap.css">
+	<link rel="stylesheet" href="{{STATIC_URL}}css/flat-ui.css">
+	{% block extra_ccs %}{% endblock extra_ccs %}
+	{% block jqueryestra %}{% endblock jqueryestra %}
+</head>
+<body>
+	<nav>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<div class="row-fluid">
+						<div class="span10">
+							<a href="#" class="brand">{{nombre_sistema.SYSTEM_NAME}}</a>
+							<div class="nav-collapse collapse">
+								<ul class="nav">
+									<li class = "{% block activo_cliente %}{% endblock activo_cliente %} "><a href="{%url 'master:cliente_listar'%}">Clientes</a></li>
+									<li class = "{% block activo_pizarra %}{% endblock activo_pizarra %} "><a href="{%url 'master:pizarra_entrega'%} ">Pizzarra</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="span2">
+							<div class="row-fluid login_logout">
+								{% if user.is_authenticated %}
+									<div class="nav span7 user_login">{{user.username|title}}</div> <div class="span4">(<a href="{% url 'master:logout' %} ">Salir</a>)</div>
+								{% else %}
+									<div class="nav span7 user_login">Anonimo</div> <div class="span4">(<a href="/">Iniciar</a>)</div>
+
+								{% endif %}
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+			{% block menuextra %}{% endblock menuextra %}
+	</nav>
+
+	<section >
+		<div class="row-fluid ">
+			<article class="span10 contenido offset1">
+					{%block contenido%}{%endblock%}
+			</article>
+		</div>
+	</section>
+{% if foot = 0 %}
+	<footer id="footer" class =" navbar-fixed-bottom">
+			<div class="container">
+				<div class="row-fluid">
+
+				</div>
+			</div>
+	</footer>
+{% endif %}
+
+
+
+
+
+
+</body>
+</html>

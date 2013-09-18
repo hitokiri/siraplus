@@ -1,0 +1,77 @@
+<table>
+	<tr>
+	{% for pedidos  in pedido  %}
+		<td>{{pedidos.producto}} </td>
+	{% endfor %}
+	</tr>
+	<tr>
+	{% for pedidos  in pedido  %}
+		<td>{{pedidos.cantidad}} </td>
+	{% endfor %}
+	</tr>
+	<tr>
+	{% for master  in pedido %}
+		<td>{{master.tipo.cliente}} </td>
+	{% endfor %}
+	</tr>
+</table>
+
+
+table {
+  width: 100%;
+  border: 1px solid #cef;
+  text-align: left; }
+th {
+  font-weight: bold;
+  background-color: #acf;
+  border-bottom: 1px solid #cef; }
+td,th {
+  padding: 4px 5px; }
+
+  consulta buena de suma de productos
+
+  Producto.objects.annotate(suma =Sum('productodppa__cantidad')).filter(Q(nombre__startswith ='quesadilla') | Q(nombre__startswith = 'torta'))
+
+  alternativa
+
+  MasterDPPA.objects.select_related('producto').annotate(suma =Sum('productodppa__cantidad'))
+
+  paso
+  ProductoDPPA.objects.select_related('producto').annotate(suma =Sum('cantidad'))
+
+
+  #hacer sumatoria de los campos de un campo basados en una relacion
+
+	sumatorias = Producto.objects.annotate(suma =Sum('productodppa__cantidad')).filter(Q(nombre__startswith ='quesadilla') | Q(nombre__startswith = 'torta')).filter(productodppa__tipo__fecha_entrega=datetime.date.today())
+  {% for suma in sumatorias %}
+	{{suma.nombre}} <br>
+	{{suma.suma}} <br>
+{% endfor %}
+
+#---------------------------------------------------------------------------------------------------------------
+#solucionado lo de los totales con la siguiente query
+	sumatorias = Producto.objects.filter(productodppa__tipo__fecha_entrega=datetime.date.today).annotate(suma =Sum('productodppa__cantidad')).filter(Q(nombre__startswith ='quesadilla') | Q(nombre__startswith = 'torta'))
+#para sacar los datos en el template usamos
+{% for sum in sumatorias %}
+	{{sum.nombre}} <br>
+	{{sum.suma}} <br>
+{% endfor %}
+#si queremos los valores totales usamos sum.cantidad
+
+la forma antigua era
+SQE=0
+	totales =[]
+	for prod in productos:
+		QE = ProductoDPPA.objects.filter(producto=prod.id, tipo__fecha_entrega= datetime.date.today())
+		for x in QE:
+			SQE =SQE + x.cantidad
+		totales.append(prod.nombre)
+		totales.append(SQE)
+		SQE=0
+
+# y en el template
+{% for total in totales %}
+			{{total}}
+			<br>
+		{% endfor %}
+#------------------------------------------------------------------------------------------------------------------

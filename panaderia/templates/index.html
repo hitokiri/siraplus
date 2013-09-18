@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block titulo %}
+	{{vista}}
+{% endblock titulo %}
+{% block contenido %}
+<u><h1>{{nombre_sistema.SYSTEM_NAME}} Pantalla de Inico</h1></u>
+{% if error %}
+	<div class=" alert alert-error error_login offset3"> <div class="icon-exclamation-sign"></div> {{error}}</div>
+{% endif %}
+<div class="login offset3">
+	<div class="datos_login">
+		<form action="" method="post">{%csrf_token%}
+			{{formulario}} <br>
+			<input type="submit" value="Iniciar Seccion" class='btn btn-default'>
+		</form>
+	</div>
+</div>
+{{meta2}}
+{% endblock contenido %}
+
+
+
+

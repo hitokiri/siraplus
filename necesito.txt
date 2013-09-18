@@ -1,0 +1,201 @@
+#query de el pedido
+pedido 						= ProductoDPPA.objects.select_related('tipo').filter(tipo__id= id)
+
+formularios con los datos de el pago
+formset 					= formularioart(request.POST)
+
+query de la deuda
+deuda1 = MasterDPPA.objects.get(cliente= pedido.tipo__cliente, tipo=2)
+deuda2 	= ProductoDPPA.objects.filter(tipo=deuda1.id)
+
+#proceso
+
+if not(suma_validacion == 0) and formset.is_valid():#validar si los campos no son vacios y si su contenido es correcto
+			principal 				= formulario
+			principal.usuario 		= usuario_login
+			principal.tipo 			= 1
+			principal.cliente 		= id #agregar una querry que capture el id para poderlo usar aqui jajja
+			principal.pago_f_v 		= True #hacer que ya estava pagado
+			principal.save()
+
+			for formu, base in zip(formset,productos):
+				salvado 			= formu.save(commit=False)
+				salvado.usuario 	= usuario_login
+				salvado.tipo    	= principal
+				salvado.precios 	= base.precio
+				salvado.producto 	= base
+				salvado.save()
+				pago_total = pago_total + (base.precio*salvado.cantidad)
+			#principal_pago = MasterDPPA.objects.get(pk=principal.id)
+			principal.total = pago_total
+			principal.save()
+#dropmenu
+
+<li class = "dropdown" >
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">acerca de ... <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="">accion</a></li>
+									<li><a href="">otra</a></li>
+									<li><a href="">la otra</a></li>
+									<li class = "divider" ></li>
+									<li class = "nav-header">Encabe</li>
+									<li><a href="">nada</a></li>
+									<li><a href="">nada</a></li>
+								</ul>
+							</li>
+
+
+#url de pizarra
+/pagar/pedido/{{todos.grouper.id}}/
+
+#template encargo
+<br>el formulario {{cambio}} cambiado
+<br> numero de formulario {{contar}}
+<br>
+{{pedido_valido}}
+
+
+
+
+#parte de pagado de pedido
+
+#seccion clase de validacion de cantidades ---------------------------------------------------------------
+	class ValidacionFormset(BaseFormSet):
+		def clean(self):
+			for form, otro in zip(self.forms,pedido):
+				cantidad = form.cleaned_data['cantidad']
+				if cantidad < 0 or cantidad > otro.cantidad:
+					raise forms.ValidationError('la cantidad no puede ser ni menor a cero ni igual ni superior a la cantidad pedida')
+			return forms
+	#------------------------------------------------------------------------------------------------------------------------------------------
+
+	formularioart 					= formset_factory(ParteEncagoForm, extra=4, formset=ValidacionFormset)#creacion de el formset para ser utilizados en la vista
+
+#validacion formularios por campos
+def clean(self):
+        cleaned_data = super(DemasDemenosForm, self).clean()
+        de_mas = cleaned_data.get('de_mas')
+        de_menos = cleaned_data.get('de_menos')
+        msg = 'El valor no puede ser = a cero'
+        if de_mas < 0 :
+            self._errors['de_mas'] = self.error_class([msg])
+            del cleaned_data['de_mas']
+
+        if de_menos < 0 :
+            self._errors['de_menos'] = self.error_class([msg])
+            del cleaned_data['de_menos']
+
+#pagar encargo-------------------------------------------------------------
+
+@login_required(login_url = '/')
+def vista_pagar_encargo(request, id):
+	try:
+		request.META['HTTP_REFERER']
+	except KeyError:
+		return HttpResponseRedirect('/pizarra')
+
+	#seccion de las queris necesarias
+	#usuario_login 					= User.objects.get(username = request.user.username)
+	usuario_login = request.user.id
+	pedido 							= ProductoDPPA.objects.select_related('tipo').filter(tipo__id= id)
+	masterdppapedido 				= MasterDPPA.objects.get(id=id)
+	#seccion clase de validacion de cantidades ---------------------------------------------------------------
+	class ValidacionFormset(BaseModelFormSet):
+		def clean(self):
+			super(ValidacionFormset, self).clean()
+			for form, otro in zip(self.forms,pedido):
+				cantidad = form.cleaned_data['cantidad']
+				if cantidad < 0 or cantidad > otro.cantidad:
+					raise forms.ValidationError('la cantidad no puede ser ni menor a cero ni igual ni superior a la cantidad pedida')
+			return forms
+	#------------------------------------------------------------------------------------------------------------------------------------------
+	foot 							= True
+	vista 							= 'Realizar Pago'
+	formularioart 					= modelformset_factory(form = ParteEncagoForm, formset=ValidacionFormset,
+										 exclude = ('producto', 'precios', 'tipo', 'usuario', 'de_mas', 'de_menos'))#creacion de el formset para ser utilizados en la vista
+	productos 						=""
+	pago_total 						= 0 # variable donde se guarda el total a pagar
+	suma_validacion 				= 0
+	deuda_total						= 0
+
+	if Producto.objects.all().exists():
+		productos 		= ProductoDPPA.objects.filter(tipo = masterdppapedido) #sacar los id y los precios de los productos
+	if request.method == 'POST':
+		deuda1 = MasterDPPA.objects.get(cliente= masterdppapedido.cliente, tipo=2)
+		deuda2 	= ProductoDPPA.objects.filter(tipo=deuda1)
+		formset 					= formularioart(request.POST)
+		formulario 					= MasterDPPA()
+		for forms in formset:#este iteracion simplemente nos sirve para saber si todos los campos cantidad son = a 0
+			este = forms.save(commit=False)
+			suma_validacion = suma_validacion + este.cantidad
+		pedido_valido="Su pedido es igual a cero por lo tanto no a sido  valido porfabor llene los campos de forma correcta"
+		if not(suma_validacion == 0) and formset.is_valid():#validar si los campos no son vacios y si su contenido es correcto
+			principal 				= formulario
+			principal.usuario_id 	= usuario_login
+			principal.tipo 			= 1
+			principal.cliente 		= masterdppapedido.cliente #agregar una querry que capture el id para poderlo usar aqui jajja
+			principal.basado_en     = masterdppapedido
+			principal.save()
+			pagarpedido 			= masterdppapedido
+			pagarpedido.pago_f_v 	= True #hacer que ya estava pagado
+			pagarpedido.save()
+
+			#queri de los campos para las deudas#jalar la deuda
+			deusadppa 				= MasterDPPA.objects.get(cliente=masterdppapedido.cliente, tipo=2)
+			prod_deuda				= ProductoDPPA.objects.filter(tipo=deusadppa)#querry para obtener los productos donde se almacenaran las cantidades que se quedan sin pagar
+			for formu, base, deuda in zip(formset, productos, prod_deuda):
+				salvado 			= formu.save(commit=False)
+				salvado.usuario_id 	= usuario_login
+				salvado.tipo    	= principal
+				salvado.precios 	= base.precios
+				salvado.producto 	= base.producto
+				salvado.save()
+				pdeuda 				= deuda# objeto para modificar la deuda
+				pdeuda.cantidad 	= pdeuda.cantidad + (base.cantidad - salvado.cantidad)
+				pdeuda.save()
+				pago_total = pago_total + (base.precios*salvado.cantidad)
+				deuda_total = deuda_total + (base.precios*(base.cantidad - salvado.cantidad))
+			#principal_pago = MasterDPPA.objects.get(pk=principal.id)
+			deuda_pago = deusadppa # cosas de la deuda
+			deuda_pago.total    = deuda_pago.total + deuda_total
+			deuda_pago.save()
+			principal.total = pago_total#terminar de el pago
+			principal.save()
+			# pedido_pagado = masterdppapedido#dejar el pedido como pagado para que no apares que la zona de pedido osea la pizarra
+			# pedido_pagado.pago_f_v = True
+			# pedido_pagado.save()#falto solucionae estas tres lineas de el pedido_pago
+
+			return HttpResponseRedirect('/pizarra')
+	else:
+		formset         			= formularioart()
+	ctx ={ 'nombre_sistema': settings, 'foot': foot, 'vista': vista,
+								 'formset': formset, 'productos': productos, 'pedido': pedido}
+	return render_to_response('quesadilla/pago.html', ctx, context_instance = RequestContext(request))
+
+#-----------------formulario del mismo----------------
+class ParteEncagoForm(forms.ModelForm):
+	class Meta:
+		model = ProductoDPPA
+		exclude = ('producto', 'precios', 'tipo', 'usuario', 'de_mas', 'de_menos')
+
+#-------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+## Validacion actual funcionando de el pago de encargos
+
+class ValidacionFormset(BaseFormSet):
+		def clean(self):
+
+
+			if any(self.errors):
+				raise forms.ValidationError(" ")
+
+			for form, otro in zip(self.forms,pedido):
+				try:
+					cantidad = form.cleaned_data['cantidad']
+				except(KeyError):
+				   cantidad = ""
+				if cantidad < 0 or cantidad > otro.cantidad or cantidad == " ":
+					raise forms.ValidationError("el valor ingresado no es valido .")

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block titulo %}
+	{{vista}}
+{% endblock titulo %}
+{% block activo_pizarra %}
+	active
+{% endblock activo_pizarra %}
+{% block contenido %}
+{% if not msg %}
+	<h1>Pedido del {{fecha.fecha_entrega}}</h1>
+{%else%}
+		<h1>Pedido del {{fecha}} --> </h1>
+{% endif %}
+
+<div class="row-fluid">
+	<div class="span9 fondo" >
+		{{msg}}
+		{% if msg %}
+			<h1>{{msg}} </h1>
+		{%else%}
+			{% regroup pedido by tipo  as todo  %}
+			<table class ='pizarra'>
+				<tr class='cabeza'>
+					<td>Nombre</td>
+					<td>Quesadilla Especial</td>
+					<td>Quesadilla Normal</td>
+					<td>Torta de Azucar</td>
+					<td>Torta de Yema</td>
+					<td>Accion</td>
+				</tr>
+				{% for todos in todo  %}
+					<tr>
+						<td>{{todos.grouper.cliente}}</td>
+						{% for prod in todos.list  %}
+							<td>{{prod.cantidad}}</td>
+						{% endfor %}
+						<td><a href="{% url 'master:pedido_pagar' todos.grouper.id  %} " class="btn pago">Pagar</a></td>
+					</tr>
+				{% endfor %}
+			</table>
+			</div>
+			<div class="span3 fondo2">
+				<h6 class='titulo'>Totales</h6>
+					{% for sum in sumatorias %}
+						{{sum.nombre}} <br>
+						{{sum.suma}} <br>
+					{% endfor %}
+
+			</div>
+		{% endif %}
+
+</div>
+
+{{base}}
+
+{% endblock contenido %}
+

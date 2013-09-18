@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block titulo %}
+	{{vista}}
+{% endblock titulo %}
+{% block activo_cliente %}
+	active
+{% endblock activo_cliente %}
+{% block contenido %}
+
+<div class="row-fluid">
+	<div class="span12 ">
+		{{lol}}
+		{% for obj in vendedora %}
+		<center>
+			<hr class = "lineas">
+		</center>
+			<div class="row-fluid " >
+				<div class="span10 postic offset1">
+					<div class="row-fluid">
+						<div class="span12 cabeza"><br>{{obj.nombres|title}} {{obj.apellidos|title}}
+							<div class="btn-group offset2">
+								<a href="{% url 'master:cliente_eliminar' obj.id %}"class="btn btn-danger offset2">Eliminar</a>
+								<a href="{% url 'master:cliente_editar' obj.id %} " class="btn btn-warning">Editart</a>
+								<a href="{% url 'master:pedido_crear' obj.id %} " class="btn btn-primary">Crear Pedido</a>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="span4 offset1 " >
+						<span class="negrito">dui:</span> {{obj.dui}}<br>
+						<span class="negrito">Direccion:</span> {{obj.direccion}}<br>
+						<span class="negrito">Telefono:</span> {{obj.telefono}}<br>
+						<span class="negrito">Fecha:</span>	{{obj.fecha}}<br>
+						<span class="negrito">Esta Activa ?: </span> {% if obj.activo = 1 %}
+						<span class="icon-ok"></span>{%else%} <span class="icon-remove"></span>
+						{% endif %}<br>
+						<span class="negrito">contacto de emergencias :</span> {{obj.contacto_e}}<br>
+						<span class="negrito">telefono de emergencias :</span> {{obj.contacto_e_t}}<br><br>
+						<span class="negrito">total :</span> {{numero|add:2}}<br><br>
+
+					</div>
+
+					<div class="span4  offset2" >
+						<td rowspan ='4'><img src="{{ MEDIA_URL }}{{obj.fotografia}} " alt="fotografia"
+							 class='img-polaroid' data-src="holder.js/300x200"></td><br><br>
+					</div>
+					<br>
+					<br>
+				</div>
+
+			</div>
+	{%empty%}
+		<h1>No se encontro ningun registro</h1>
+	{% endfor %}
+	</div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<footer id="footer" class =" navbar-fixed-bottom">
+									<div class="container">
+										<div class="row-fluid">
+											<a href="{%url 'master:cliente_crear'%}" class ='btn '>Agregar nuevo cliente</a>
+										</div>
+									</div>
+							</footer>
+{% endblock contenido %}
