@@ -311,14 +311,14 @@ def vista_pizarra_entrega(request):
 	base =  MasterDPPA.objects.values('fecha_entrega').filter(fecha_entrega = datetime.date.today(), tipo=3)
 	msg = None
 	numero = None
-	errores = None
+	errores = ""
 	if base:
 		fecha = base[0]
 	else:
 		fecha = datetime.date.today
 		msg ='Para esta fecha no se encuentra ningun pedido'
 	foot = False
-	sumatorias = Producto.objects.filter(Q(productodppa__tipo__pago_f_v=False), Q(productodppa__tipo__tipo=3), Q(productodppa__tipo__fecha_entrega=datetime.date.today()),
+	sumatorias = Producto.objects.filter(Q(productodppa__tipo__entregado=False),Q(productodppa__tipo__pago_f_v=False), Q(productodppa__tipo__tipo=3), Q(productodppa__tipo__fecha_entrega=datetime.date.today()),
 		Q(nombre__startswith ='quesadilla') | Q(nombre__startswith = 'torta')).annotate(suma =Sum('productodppa__cantidad'))
 	#query para grupos A, B, C ----------------------------------------------------------------------------------------------------------------------------------------
 	pedido = ProductoDPPA.objects.select_related('tipo').filter(tipo__fecha_entrega=datetime.date.today(), tipo__tipo=3, tipo__pago_f_v=False, tipo__entregado = False)

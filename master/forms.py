@@ -31,16 +31,16 @@ class LoginForm(forms.Form):
 class DemasDemenosForm(forms.Form):
     ''' formulario para manejar las cantidades que se daran de mas o de menos
         como compenzaciones a los clientes por alguna razon no definida explicitamente  '''
-    def clean_de_mas(self):
-        de_mas = self.cleaned_data.get("de_mas")
-        if int(de_mas) < 0:
-            raise forms.ValidationError("")
-        return   de_mas
-    def clean_de_menos(self):
-        de_menos = self.cleaned_data.get("de_menos")
-        if int(de_menos) < 0:
-            raise forms.ValidationError("")
-        return de_menos
+    def clean(self):
+        de_mas      = self.cleaned_data.get("de_mas")
+        de_menos    = self.cleaned_data.get("de_menos")
+        if int(de_mas) != 0 and int(de_menos) != 0:
+            errores = 'Losdos campos no pueden contener datos al mismo tiempo'
+        else:
+                if int(de_mas) < 0:
+                    errores = "el dato de menos no puede ser menos a cero "
+                if int(de_menos) < 0:
+                    errores = "el dato de menos no puede ser menos a cero "
 
     id            = forms.IntegerField()
     de_mas        = forms.DecimalField(max_digits=5, decimal_places=2, widget=forms.TextInput(attrs={'class':'input-mini', 'value': 0}))

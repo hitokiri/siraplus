@@ -130,6 +130,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'django_extensions',
     'produccion',
+    'almacen',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -171,3 +172,4 @@ DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.signals.SignalDebugPanel',
     'debug_toolbar.panels.logger.LoggingPanel',
 )
+ALLOWED_HOSTS = ['*']
