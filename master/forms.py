@@ -32,17 +32,27 @@ class DemasDemenosForm(forms.Form):
     ''' formulario para manejar las cantidades que se daran de mas o de menos
         como compenzaciones a los clientes por alguna razon no definida explicitamente  '''
     def clean(self):
-        de_mas      = self.cleaned_data.get("de_mas")
-        de_menos    = self.cleaned_data.get("de_menos")
-        if int(de_mas) != 0 and int(de_menos) != 0:
-            errores = 'Losdos campos no pueden contener datos al mismo tiempo'
-        else:
-                if int(de_mas) < 0:
-                    errores = "el dato de menos no puede ser menos a cero "
-                if int(de_menos) < 0:
-                    errores = "el dato de menos no puede ser menos a cero "
+        cleaned_data = super(DemasDemenosForm, self).clean()
+        de_mas      =   cleaned_data.get("de_mas")
+        de_menos    =   cleaned_data.get("de_menos")
+        msg = 'los valores ingresados no son validos solo se puede ingresar uno u otro '
+        msg1 = 'los valores ingresados no son validos ya que son menores acero'
 
-    id            = forms.IntegerField()
+        if int(de_mas) != 0 and int(de_menos) != 0:
+            errores = 'Tosdos campos no pueden contener datos al mismo tiempo'
+            raise forms.ValidationError(msg)
+        else:
+            if int(de_mas) < 0:
+                errores = "el dato de menos no puede ser menos a cero "
+                raise forms.ValidationError(msg1)
+
+            if int(de_menos) < 0:
+                errores = "el dato de menos no puede ser menos a cero "
+                raise forms.ValidationError(msg1)
+
+        return cleaned_data
+
+    id            = forms.IntegerField(widget=forms.TextInput(attrs={'type':'hidden'}))
     de_mas        = forms.DecimalField(max_digits=5, decimal_places=2, widget=forms.TextInput(attrs={'class':'input-mini', 'value': 0}))
     de_menos      = forms.DecimalField(max_digits=5, decimal_places=2, widget=forms.TextInput(attrs={'class':'input-mini', 'value': 0}))
 

@@ -1,5 +1,12 @@
 $(document).ready(function() {
 	//--------------------------------------------------
+	//toggle de la pizarra de entregas
+	//----------------------------------------------------
+	$( '.accion').click(function() {
+		var padre = $(this).attr('name');
+  		$(padre).slideToggle( "slow" );
+	});
+	//--------------------------------------------------
 	//para hacer las alertas de bootstrap
 	//----------------------------------------------------
 

@@ -165,11 +165,11 @@ def vista_crear_encargo(request, id):
 		formulario 		= EncargoForm(request.POST)
 		formset 		= formularioart(request.POST)
 		contar 			= formset.initial_form_count()
-		for forms in formset:#este iteracion simplemente nos sirve para saber si todos los campos cantidad son = a 0
-			este = forms.save(commit=False)
-			suma_validacion = suma_validacion + este.cantidad
-		pedido_valido="Su pedido es igual a cero por lo tanto no a sido  valido porfabor llene los campos de forma correcta"
-		if formulario.is_valid() and formset.is_valid() and not(suma_validacion == 0):
+		# for forms in formset:#este iteracion simplemente nos sirve para saber si todos los campos cantidad son = a 0
+		# 	este = forms
+		# 	suma_validacion = suma_validacion + este.cantidad
+		# pedido_valido="Su pedido es igual a cero por lo tanto no a sido  valido porfabor llene los campos de forma correcta"
+		if formulario.is_valid() and formset.is_valid():
 			principal 				= formulario.save(commit=False)
 			principal.usuario_id 	= usuario_login
 			principal.tipo 			= 3
@@ -342,10 +342,12 @@ def vista_pizarra_entrega(request):
 			entregado.de_menos = de_menos
 			entregado.entregado = True
 			entregado.save()
-			return HttpResponseRedirect('/pizarra/entrega')
+			return HttpResponseRedirect('pizarra/entrega')
+
 	else:
 		formsetpedido =  DemasDemenosForm()
 	vista = 'Pizarra'
 	ctx ={'fecha': fecha, 'nombre_sistema': settings, 'foot': foot, 'vista': vista, 'pedido': pedido, 'sumatorias': sumatorias, 'msg': msg, 'base': base,
 	 				'formset': formsetpedido, 'numero': numero, 'seccionA': seccionA, 'seccionB': seccionB, 'seccionC': seccionC, 'errores': errores}
 	return render_to_response('quesadilla/pizarra_entrega.html', ctx, context_instance = RequestContext(request))
+

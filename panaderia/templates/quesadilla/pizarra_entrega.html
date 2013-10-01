@@ -5,6 +5,9 @@
 {% block activo_pizarra %}
 	active
 {% endblock activo_pizarra %}
+{% block jqueryestra %}
+<script type="text/javascript" src= "{{STATIC_URL}}js/panaderia.js"></script>
+{% endblock jqueryestra %}
 {% block contenido %}
 {% if not msg %}
 	<h1>Pedido del {{fecha.fecha_entrega}}</h1>
@@ -86,12 +89,21 @@
 							<td>{{prod.cantidad}}</td>
 						{% endfor %}
 						<td>
-								<form action="" method="post" class='form-inline campo-entrega'>{% csrf_token %}
-									<input id="id_id" name="id" type="hidden" value='{{todos.grouper.id}} '>
+							<button name='.clase{{forloop.counter}} ' class = 'accion btn' >Mas >></button>
+							<form action="" method="post" class=' campo-entrega'>{% csrf_token %}
+								<input id="id_id" name="id" type="hidden" value='{{todos.grouper.id}}'>
+								<input type="submit" value="Entregar" class='btn'>
+								<div class='clase{{forloop.counter}}' style="display:none">
 									{{formset.de_mas}}
 									{{formset.de_menos}}
-									<input type="submit" value="Entregar" class='btn'>
-								</form>
+									</form>
+								</div>
+
+						</td>
+					</tr>
+					<tr>
+						<td colspan=6>
+
 						</td>
 					</tr>
 				{% endfor %}
@@ -118,7 +130,7 @@
 						{% endfor %}
 						<td>
 								<form action="" method="post" class='form-inline campo-entrega'>{% csrf_token %}
-									<input id="id_id" name="id" type="hidden" value='{{todos.grouper.id}} '>
+									<input id="id_id" name="id" type="hidden" value='{{todos.grouper.id}}'>
 									{{formset.de_mas}}
 									{{formset.de_menos}}
 									<input type="submit" value="Entregar" class='btn'>
@@ -149,7 +161,7 @@
 						{% endfor %}
 						<td>
 								<form action="" method="post" class='form-inline campo-entrega'>{% csrf_token %}
-									<input id="id_id" name="id" type="hidden" value='{{todos.grouper.id}} '>
+									<input id="id_id" name="id" type="hidden" value='{{todos.grouper.id}}'>
 									{{formset.de_mas.errors}}
 									{{formset.de_mas}}
 									{{formset.de_menos.errors}}
@@ -174,8 +186,10 @@
 {% endif %}
 {{numero}}
 {{formset.errors}}
+{{errores}}
 <br>
 <br>
 <br>
+
 {% endblock contenido %}
 

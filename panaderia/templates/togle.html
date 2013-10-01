@@ -14,26 +14,54 @@
 
 <div>
 	<button name='.clase1' class = 'accion'>Toggle</button>
-	<p class='clase1'>
-	  This is the paragraph to end all paragraphs.  You
-	  should feel <em>lucky</em> to have seen such a paragraph in
-	  your life.  Congratulations!
-	</p>
+	<td class='clase1' style="display:none">
+
+	  <p class='clase1' style="display:none">This is the paragraph to end all paragraphs.  You
+	  	should feel <em>lucky</em> to have seen such a paragraph in
+	  	your life.  Congratulations!</p>
+	</td>
 </div>
-<div>
+<tr>
 	<button name='.clase2' class = 'accion'>Toggle</button>
-	<p class='clase2'>
-	  This is the paragraph to end all paragraphs.  You
-	  should feel <em>lucky</em> to have seen such a paragraph in
-	  your life.  Congratulations!
-	</p>
-</div>
+	<td class='clase2' style="display:none">
+	  <p>This is the paragraph to end all paragraphs.  You
+	  	should feel <em>lucky</em> to have seen such a paragraph in
+	  	your life.  Congratulations!</p>
+	</td>
+</tr>
 <script>
 $( '.accion').click(function() {
 	var padre = $(this).attr('name');
   $(padre).slideToggle( "slow" );
 });
 </script>
+
+
+<table>
+	<tr>
+		<td>{{todos.grouper.cliente}}</td>
+
+			<td>{{prod.cantidad}}</td>
+
+		<td>
+			<button name='.clase{{forloop.counter}} ' class = 'accion btn' >Mas >></button>
+			<form action="" method="post" class=' campo-entrega'>{% csrf_token %}
+				<input id="id_id" name="id" type="hidden" value={{todos.grouper.id}}>
+				<input type="submit" value="Entregar" class='btn'>
+
+		</td>
+	</tr>
+	<tr>
+		<td colspan=6>
+				<div class='clase{{forloop.counter}}' style="display:none">
+					{{formset.de_mas}}
+					{{formset.de_menos}}
+
+				</div>
+		</td>
+	</tr>
+	</form>
+</table>
 
 </body>
 </html>

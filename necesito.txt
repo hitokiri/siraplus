@@ -215,3 +215,21 @@ class DemasDemenosForm(forms.Form):
         if int(de_menos) < 0:
             raise forms.ValidationError("")
         return de_menos
+
+#calidacion el campos de formulario  Demas de menos form normal
+
+ def clean(self):
+        cleaned_data = super(DemasDemenosForm, self).clean()
+        de_mas      =   cleaned_data.get("de_mas")
+        de_menos    =   cleaned_data.get("de_menos")
+        msg = 'los valores ingresados no son validos solo se puede ingresar uno u otro '
+        msg1 = 'los valores ingresados no son validos ya que son menores acero'
+
+        if int(de_mas) != 0 and int(de_menos) != 0:
+            raise forms.ValidationError(msg)
+        else:
+            if int(de_mas) < 0:
+                 raise forms.ValidationError(msg1)
+            if int(de_menos) < 0:
+                raise forms.ValidationError(msg1)
+        return cleaned_data
