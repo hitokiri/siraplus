@@ -158,8 +158,7 @@ class MasterDPPA(models.Model):
 	pago_f_v					= models.BooleanField()
 	grupo 						= models.CharField(max_length=10, choices=GRUPO, default='A')
 	entregado 					= models.BooleanField()
-	de_mas 		 				= models.DecimalField( max_digits=5, decimal_places=2, default = 0, null=True, blank=True)
-	de_menos 					= models.DecimalField( max_digits=5, decimal_places=2, default = 0, null=True, blank=True)
+
 
 	class Meta:
 		verbose_name = ('MasterDPPA')
@@ -175,6 +174,8 @@ class ProductoDPPA(models.Model):
 	cantidad 					= models.DecimalField( decimal_places = 2, max_digits = 5, default = 0)
 	precios 					= models.DecimalField( decimal_places = 2, max_digits = 5, default = 0)
 	fecha 						= models.DateField(auto_now_add = True)
+	cambios 		 			= models.DecimalField( max_digits=5, decimal_places=2, default = 0, null=True, blank=True)#este campo guarda los cambios de cantidades de mas o menos  en el producto de el pedido
+
 
 	class Meta:
 		verbose_name = ('ProductoDPPA')

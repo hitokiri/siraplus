@@ -14,56 +14,7 @@
 {%else%}
 		<h1>Pedido del {{fecha}} --> </h1>
 {% endif %}
-<!--
-<div class="row-fluid">
-	<div class="span9 fondo" >
 
-		{% if msg %}
-			<h1>{{msg}} </h1>
-		{%else%}
-			{% regroup pedido by tipo  as todo  %}
-			<table class ='pizarra'>
-				<tr class='cabeza'>
-					<td>Nombre</td>
-					<td>Quesadilla Especial</td>
-					<td>Quesadilla Normal</td>
-					<td>Torta de Azucar</td>
-					<td>Torta de Yema</td>
-					<td>Accion</td>
-				</tr>
-				{% for todos in todo  %}
-					<tr>
-						<td>{{todos.grouper.cliente}}</td>
-						{% for prod in todos.list  %}
-							<td>{{prod.cantidad}}</td>
-						{% endfor %}
-						<td>
-								<form action="" method="post" class='form-inline campo-entrega'>{% csrf_token %}
-									<input id="id_id" name="id" type="hidden" value='{{todos.grouper.id}} '>
-									{{formset.de_mas}}
-									{{formset.de_menos}}
-									<input type="submit" value="Entregar" class='btn'>
-								</form>
-
-
-						</td>
-					</tr>
-				{% endfor %}
-			</table>
-			</div>
-			<div class="span2 fondo2">
-				<h6 class='titulo'>Totales</h6>
-					{% for sum in sumatorias %}
-						{{sum.nombre}} <br>
-						{{sum.suma}} <br>
-					{% endfor %}
-			</div>
-		{% endif %}
-</div>
-{{numero}}
-
--->
-<!--secciones -->
 {% if msg %}
 			<h1>{{msg}} </h1>
 		{%else%}
@@ -90,20 +41,22 @@
 						{% endfor %}
 						<td>
 							<button name='.clase{{forloop.counter}} ' class = 'accion btn' >Mas >></button>
-							<form action="" method="post" class=' campo-entrega'>{% csrf_token %}
-								<input id="id_id" name="id" type="hidden" value='{{todos.grouper.id}}'>
-								<input type="submit" value="Entregar" class='btn'>
-								<div class='clase{{forloop.counter}}' style="display:none">
-									{{formset.de_mas}}
-									{{formset.de_menos}}
-									</form>
-								</div>
-
+							<a href="pizarra/entrega/expres/{{todos.grouper.id}}" class="btn entrega-express{{forloop.counter}}">Entregar</a>
 						</td>
 					</tr>
 					<tr>
 						<td colspan=6>
+							<div class="clase{{forloop.counter}}" style="display:none">
+								<form action="" method="post" class='campo-entrega'>{% csrf_token %}
+									<input id="id_id" name="id" type="hidden" value='{{todos.grouper.id}}'>
+									{% for form in formset %}
+										{{form.de_mas}}
+										{{form.de_menos}}
+									{% endfor %}
 
+									<input type="submit" value="Entregar" class='btn'>
+								</form>
+							</div>
 						</td>
 					</tr>
 				{% endfor %}

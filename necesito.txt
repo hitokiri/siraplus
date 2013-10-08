@@ -233,3 +233,59 @@ class DemasDemenosForm(forms.Form):
             if int(de_menos) < 0:
                 raise forms.ValidationError(msg1)
         return cleaned_data
+
+
+//------------------------------------------------------------------------------------------
+//        parte de pizarra entrega
+//-----------------------------------------------------------------------------------------
+
+<!--
+<div class="row-fluid">
+	<div class="span9 fondo" >
+
+		{% if msg %}
+			<h1>{{msg}} </h1>
+		{%else%}
+			{% regroup pedido by tipo  as todo  %}
+			<table class ='pizarra'>
+				<tr class='cabeza'>
+					<td>Nombre</td>
+					<td>Quesadilla Especial</td>
+					<td>Quesadilla Normal</td>
+					<td>Torta de Azucar</td>
+					<td>Torta de Yema</td>
+					<td>Accion</td>
+				</tr>
+				{% for todos in todo  %}
+					<tr>
+						<td>{{todos.grouper.cliente}}</td>
+						{% for prod in todos.list  %}
+							<td>{{prod.cantidad}}</td>
+						{% endfor %}
+						<td>
+								<form action="" method="post" class='form-inline campo-entrega'>{% csrf_token %}
+									<input id="id_id" name="id" type="hidden" value='{{todos.grouper.id}} '>
+									{{formset.de_mas}}
+									{{formset.de_menos}}
+									<input type="submit" value="Entregar" class='btn'>
+								</form>
+
+
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+			</div>
+			<div class="span2 fondo2">
+				<h6 class='titulo'>Totales</h6>
+					{% for sum in sumatorias %}
+						{{sum.nombre}} <br>
+						{{sum.suma}} <br>
+					{% endfor %}
+			</div>
+		{% endif %}
+</div>
+{{numero}}
+
+-->
+<!--secciones -->

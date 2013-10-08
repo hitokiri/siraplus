@@ -329,10 +329,11 @@ def vista_pizarra_entrega(request):
 	seccionC = ProductoDPPA.objects.select_related('tipo').filter(tipo__fecha_entrega=datetime.date.today(), tipo__tipo=3, tipo__pago_f_v=False,
 	 			tipo__entregado = False, tipo__grupo = 'C')
 	#------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	formpedido = MasterDPPA.objects.filter(fecha_entrega=datetime.date.today(), tipo=3, pago_f_v=False, entregado = False).values()
+	#formpedido = MasterDPPA.objects.filter(fecha_entrega=datetime.date.today(), tipo=3, pago_f_v=False, entregado = False).values()
+	formulario_de_mas =	formset_factory(DemasDemenosForm, extra= 4)
 
 	if request.method == 'POST':
-		formsetpedido = DemasDemenosForm(request.POST)
+		formsetpedido = formulario_de_mas(request.POST)
 		if formsetpedido.is_valid():
 			numero = formsetpedido.cleaned_data['id']
 			de_mas = formsetpedido.cleaned_data['de_mas']
@@ -344,8 +345,14 @@ def vista_pizarra_entrega(request):
 			entregado.save()
 			return HttpResponseRedirect('/pizarra/entrega')
 	else:
-		formsetpedido =  DemasDemenosForm()
+		formsetpedido =  formulario_de_mas()
 	vista = 'Pizarra'
 	ctx ={'fecha': fecha, 'nombre_sistema': settings, 'foot': foot, 'vista': vista, 'pedido': pedido, 'sumatorias': sumatorias, 'msg': msg, 'base': base,
 	 				'formset': formsetpedido, 'numero': numero, 'seccionA': seccionA, 'seccionB': seccionB, 'seccionC': seccionC, 'errores': errores}
 	return render_to_response('quesadilla/pizarra_entrega.html', ctx, context_instance = RequestContext(request))
+
+def vista_pizarra_entrega_expres(request, id):
+	entrega = MasterDPPA.object.get(id = id)
+	entrega.entregado = True
+	entrega.save()
+	return HttpResponseRedirect('/pizarra/entrega')

@@ -13,6 +13,7 @@ urlpatterns = patterns('master.views',
 	url(r'^pagar/pedido/(?P<id>\d+)/$', 'vista_pagar_encargo', name = 'pedido_pagar'),
 	url(r'^logout/$','logout_vista', name='logout'),
 	url(r'^pizarra/entrega/$', 'vista_pizarra_entrega', name = 'pizarra_entrega'),
+	url(r'^pizarra/entrega/expres(?P<id>\d+)/$', 'vista_pizarra_entrega_expres', name = 'pizarra_entrega_expres'),
 
 
 )

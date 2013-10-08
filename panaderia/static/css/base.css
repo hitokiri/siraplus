@@ -243,3 +243,6 @@ max-width: 30%;
     margin-bottom: 0;
     padding-bottom: 0;
 }
+.campo-entrega input[type="text"] {
+    width: 20px;
+}
