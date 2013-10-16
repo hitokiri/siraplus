@@ -54,7 +54,7 @@ class DemasDemenosForm(forms.Form):
 
     id            = forms.IntegerField()
     de_mas        = forms.DecimalField(max_digits=5, decimal_places=2, widget=forms.TextInput(attrs={ 'value': 0, 'size':12}))
-    de_menos      = forms.DecimalField(max_digits=5, decimal_places=2, widget=forms.TextInput(attrs={'class':'input-mini', 'value': 0, 'size':2}))
+    de_menos      = forms.DecimalField(max_digits=5, decimal_places=2, widget=forms.TextInput(attrs={ 'value': 0, 'size':2}))
 
 class Busqueda(forms.Form):
     criterio         = forms.CharField(label ='nombre', max_length=50)

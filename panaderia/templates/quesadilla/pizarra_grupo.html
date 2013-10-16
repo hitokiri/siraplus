@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block titulo %}
+	{{vista}}
+{% endblock titulo %}
+{% block activo_pizarra %}
+	active
+{% endblock activo_pizarra %}
+{% block jqueryestra %}
+<script type="text/javascript" src= "{{STATIC_URL}}js/panaderia.js"></script>
+{% endblock jqueryestra %}
+
+{% block contenido %}
+
+{% if not msg %}
+	<h1>Pedido del {{fecha.fecha_entrega}}</h1>
+{%else%}
+		<h1>Pedido del {{fecha}} --> </h1>
+{% endif %}
+
+{% if msg %}
+			<h1>{{msg}} </h1>
+		{%else%}
+			{% regroup seccion by tipo  as todo  %}
+<br>
+<h1>Grupo A</h1>
+<div class="row-fluid">
+
+<div class="span10">
+
+			<table class ='pizarra'>
+				<tr class='cabeza'>
+					<td>Nombre</td>
+					<td>Quesadilla Especial</td>
+					<td>Quesadilla Normal</td>
+					<td>Torta de Azucar</td>
+					<td>Torta de Yema</td>
+					<td>Accion</td>
+				</tr>
+				{% for todos in todo  %}
+					<tr>
+						<td>{{todos.grouper.cliente}}</td>
+						{% for prod in todos.list  %}
+							<td>{{prod.cantidad}}</td>
+						{% endfor %}
+						<td>
+							<button name='.clase{{forloop.counter}} ' class = 'accion btn' >Mas >></button>
+							<a href="pizarra/entrega/expres/{{todos.grouper.id}}" class="btn entrega-express{{forloop.counter}}">Entregar</a>
+						</td>
+					</tr>
+					<tr>
+						<td colspan=6>
+							<div class="clase{{forloop.counter}}" style="display:none">
+								<form action="" method="post" class='campo-entrega'>{% csrf_token %}
+									<input id="id_id" name="id" type="hidden" value='{{todos.grouper.id}}'>
+									{% for form in formset %}
+										{{form.de_mas}}
+										{{form.de_menos}}
+									{% endfor %}
+									<input type="text" name="" id="">
+									<input type="submit" value="Entregar" class='btn'>
+								</form>
+							</div>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+			<br>
+		</div>
+		<div class="span2 fondo2">
+
+				<h6 class='titulo'>Totales</h6>
+					{% for sum in sumatorias %}
+						{{sum.nombre}} <br>
+						{{sum.suma}} <br>
+					{% endfor %}
+
+	</div>
+
+</div>
+{%endif%}
+{% endblock contenido %}
