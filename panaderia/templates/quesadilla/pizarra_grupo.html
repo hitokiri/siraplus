@@ -48,17 +48,47 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan=6>
+						<td colspan=6 class="clase22">
 							<div class="clase{{forloop.counter}}" style="display:none">
-								<form action="" method="post" class='campo-entrega'>{% csrf_token %}
-									<input id="id_id" name="id" type="hidden" value='{{todos.grouper.id}}'>
-									{% for form in formset %}
-										{{form.de_mas}}
-										{{form.de_menos}}
-									{% endfor %}
-									<input type="text" name="" id="">
-									<input type="submit" value="Entregar" class='btn'>
-								</form>
+								<div class="row-fluid">
+									<div class="span12 nombre_opcion_pizarra"> Cambios</div>
+								</div>
+								<div class="row-fluid pizarra_grupo_dentro ">
+									<div class="span12">
+										<form action="" method="post" class='campo-entrega'>{% csrf_token %}
+											<input id="id_id" name="id" type="hidden" value='{{todos.grouper.id}}'>
+											<div class="row-fluid">
+											{% for form in formset %}
+												<div class="tipo_grupo_pizarra{{forloop.counter}} span2 ">
+												{{form.de_mas}}
+												{{form.de_menos}}
+												</div>
+
+											{% endfor %}
+											<div class="span2 tipo_grupo_pizarra">
+												{{form_compenzacion.cantidad}} {{form_compenzacion.tipo}}
+											</div>
+											<div class="span1">
+												<input type="submit" value="Entregar" class='btn'>
+											</div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<div class="span12 nombre_opcion_pizarra"> Opciones de Grupo</div>
+								</div>
+								<div class="row-fluid pizarra_grupo_dentro ">
+									<div class="span12">
+										<form action="" method="post" class='campo-entrega'>{% csrf_token %}
+											<input id="id_id" name="id" type="hidden" value='{{todos.grouper.id}}'>
+												<div class="tipo_grupo_pizarra">
+													{{form_grupo.grupo}} {{form_grupo.posicion}}
+													<input type="submit" value="Entregar" class='btn'>
+												</div>
+										</form>
+									</div>
+								</div>
 							</div>
 						</td>
 					</tr>

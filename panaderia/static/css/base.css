@@ -196,11 +196,11 @@ hr {
   text-align:center;
 }
 
-.pizarra tr:nth-child(2n+1) {
+/*.pizarra tr:nth-child(2n+1) {
   font-weight: bold;
   background-color: #acf;
   border-bottom: 1px solid #cef;
-}
+}*/
 .pizarra td,th {
   padding: 2px 2px;
 }
@@ -245,4 +245,43 @@ max-width: 30%;
 }
 .campo-entrega input[type="text"] {
     width: 20px;
+}
+
+/*pizarra grupo*/
+.pizarra_grupo_dentro{
+  background-color: black;
+}
+.nombre_opcion_pizarra{
+  border: solid 1px gold;
+  background-color: gray;
+  color: black;
+}
+
+.tipo_grupo_pizarra{
+  padding: 0;
+  margin-left: 0;
+}
+
+.tipo_grupo_pizarra input[type="text"]{
+  border-color: green;
+  margin-top: 10px;
+}
+.tipo_grupo_pizarra1 input[type="text"]{
+  border-color: red;
+  margin-top: 10px;
+}
+.tipo_grupo_pizarra2 input[type="text"]{
+  border-color: blue;
+  margin-top: 10px;
+}
+.tipo_grupo_pizarra3 input[type="text"]{
+  border-color: orange;
+  margin-top: 10px;
+}
+.tipo_grupo_pizarra4 input[type="text"]{
+  border-color: pink;
+  margin-top: 10px;
+}
+#id_tipo{
+  width: 60px;
 }

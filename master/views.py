@@ -358,9 +358,15 @@ def vista_pizarra_entrega_expres(request, id):
 	return HttpResponseRedirect('/pizarra/entrega')
 
 def vista_pizarra_grupos_cambios(request, grupo):
+
+	formulario_de_mas =	formset_factory(DemasDemenosForm, extra= 4)
 	sumatorias = Producto.objects.filter(Q(productodppa__tipo__entregado=False),Q(productodppa__tipo__pago_f_v=False), Q(productodppa__tipo__tipo=3), Q(productodppa__tipo__fecha_entrega=datetime.date.today()),
 		Q(nombre__startswith ='quesadilla') | Q(nombre__startswith = 'torta')).annotate(suma =Sum('productodppa__cantidad'))
 	seccion = ProductoDPPA.objects.select_related('tipo').filter(tipo__fecha_entrega=datetime.date.today(), tipo__tipo=3, tipo__pago_f_v=False,
 	 			tipo__entregado = False, tipo__grupo = 'A')
-	ctx = {'seccion': seccion, 'sumatorias': sumatorias}
+	formsetpedido =  formulario_de_mas()
+	form_compenzacion = Compenzacion()
+	form_grupo = Grupo()
+	ctx = {'seccion': seccion, 'sumatorias': sumatorias, 'formsetpedido': formsetpedido, 'formset': formsetpedido, 'form_compenzacion': form_compenzacion,
+			'form_grupo': form_grupo }
 	return render_to_response('quesadilla/pizarra_grupo.html',ctx , context_instance = RequestContext(request))

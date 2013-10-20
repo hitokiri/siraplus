@@ -4,6 +4,7 @@ $(document).ready(function() {
 	//----------------------------------------------------
 	$( '.accion').click(function() {
 		var padre = $(this).attr('name');
+		$( "clase22" ).css('display','none');
   		$(padre).slideToggle( "slow" );
 	});
 	//--------------------------------------------------

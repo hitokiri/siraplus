@@ -22,11 +22,11 @@ class EncargoForm(forms.ModelForm):
     	return fecha_entrega
 
 class ParteEncagoForm(forms.Form):
-	cantidad      = forms.DecimalField(max_digits=5, decimal_places=2, widget=forms.TextInput(attrs={'value': 0}))
+	cantidad      = forms.DecimalField(max_digits = 5, decimal_places = 2, widget = forms.TextInput(attrs = {'value': 0}))
 
 class LoginForm(forms.Form):
-    usuario         = forms.CharField(max_length=20)
-    contrasena      = forms.CharField(max_length=20 ,widget = PasswordInput(), label='Contraseña')
+    usuario         = forms.CharField(max_length = 20)
+    contrasena      = forms.CharField(max_length = 20 ,widget = PasswordInput(), label = 'Contraseña')
 
 class DemasDemenosForm(forms.Form):
     ''' formulario para manejar las cantidades que se daran de mas o de menos
@@ -53,8 +53,17 @@ class DemasDemenosForm(forms.Form):
         return cleaned_data
 
     id            = forms.IntegerField()
-    de_mas        = forms.DecimalField(max_digits=5, decimal_places=2, widget=forms.TextInput(attrs={ 'value': 0, 'size':12}))
-    de_menos      = forms.DecimalField(max_digits=5, decimal_places=2, widget=forms.TextInput(attrs={ 'value': 0, 'size':2}))
+    de_mas        = forms.DecimalField(max_digits = 5, decimal_places = 2, widget = forms.TextInput(attrs={ 'value': 0, 'size':12}))
+    de_menos      = forms.DecimalField(max_digits = 5, decimal_places = 2, widget = forms.TextInput(attrs={ 'value': 0, 'size':2}))
 
 class Busqueda(forms.Form):
     criterio         = forms.CharField(label ='nombre', max_length=50)
+
+class Grupo(forms.Form):
+    grupo         = forms.IntegerField()
+    posicion      = forms.IntegerField()
+
+class Compenzacion(forms.Form):
+    TIPO = ((u'qe', 'Qe'), (u'qn', 'Qn'), (u'te', 'Te'), (u'tn', 'Tn'),)
+    cantidad      = forms.DecimalField(max_digits = 5, decimal_places = 2, widget = forms.TextInput(attrs={ 'value': 0, 'size':2}))
+    tipo          = forms.ChoiceField( choices = TIPO)
