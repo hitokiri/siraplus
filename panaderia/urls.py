@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'panaderia.views.home', name='home'),
     # url(r'^panaderia/', include('panaderia.foo.urls')),
-    url(r'^', include('master.urls', 'master')),
+    url(r'^', include('master.urls', 'master', 'master')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

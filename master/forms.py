@@ -4,6 +4,7 @@ from django import forms
 from master.models import *
 import datetime
 from django.forms.widgets import PasswordInput
+
 class VendedoraForm(forms.ModelForm):
     class Meta:
         model = Cliente

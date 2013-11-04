@@ -28,10 +28,11 @@ class Cliente(models.Model):
 	tipo 						= models.ForeignKey(TipoCliente)
 	nombres						= models.CharField('Nombre completo', max_length = 150)
 	apellidos					= models.CharField('Apellidos completos' , max_length = 150)
+	fecha_naciemiento 			= models.DateField()
 	dui 						= models.CharField('Dui', max_length = 10)
 	direccion					= models.TextField('Direccion', max_length = 250)
 	telefono					= models.CharField('Telefono', max_length = 9)
-	fecha 						= models.DateField('Fecha de Contrataion')
+	fecha_contratacion			= models.DateField('fecha de contratacion')
 	activo						= models.BooleanField('Esta activo el trabajador?', default=True)
 	contacto_e					= models.CharField('Contacto de emergencia', max_length = 150)
 	contacto_e_t				= models.CharField('telefono de contacto', max_length = 9)
@@ -44,59 +45,6 @@ class Cliente(models.Model):
 
 	def __unicode__(self):
 		return self.nombres
-
-# class Encargo(models.Model):
-# 	vendedora 					= models.ForeignKey(Vendedora)
-# 	quesadilla_normal			= models.IntegerField()
-# 	quesadilla_especial			= models.IntegerField()
-# 	ta 							= models.IntegerField('torta')
-# 	ty 							= models.IntegerField('torta de yema')
-# 	ab 							= models.IntegerField('abono')
-# 	des 						= models.IntegerField('descuento')
-# 	pago 						= models.DecimalField('Pago ', decimal_places = 2, max_digits = 5)
-# 	fecha 						= models.DateField(auto_now_add = True)
-# 	fecha_entrega				= models.DateField('Para cuando es el Pedido ')
-# 	de_mas_o_menos_e			= models.DecimalField('Demas o menos Especial ', decimal_places = 2,
-# 														max_digits = 5, blank=True, null=True)
-# 	de_mas_o_menos_n			= models.DecimalField('Demas o menos Normal ', decimal_places = 2,
-# 														max_digits = 5, blank=True, null=True)
-# 	com 						= models.DecimalField('compenzacion',decimal_places = 2,
-# 													 max_digits = 5, blank=True, null=True)
-# 	total						= models.DecimalField(decimal_places = 2, max_digits = 5, blank=True, null=True)
-
-
-# 	class Meta:
-# 		verbose_name = ('Encargo')
-# 		verbose_name_plural = ('Encargos')
-
-# 	def __unicode__(self):
-# 		return  str(self.vendedora)
-#la parte principal que conforma el pedido al cual se amarra todos los preoductos
-#que conlleva el
-# class Encargo(models.Model):
-# 	usuario						= models.ForeignKey(User)
-# 	vendedora 					= models.ForeignKey(Vendedora)
-# 	total						= models.DecimalField(decimal_places = 2, max_digits = 5, blank=True, null=True)
-
-# 	class Meta:
-# 		verbose_name = ('Encargo')
-# 		verbose_name_plural = ('Encargos')
-
-# 	def __unicode__(self):
-# 		return  str(self.vendedora)
-#cada uno de los productos que conforman el  Encargo
-# class ProductoEncargo(models.Model):
-# 	encargo 					= models.ForeignKey(Encargo)
-# 	producto 					= models.ForeignKey('Producto')
-# 	cantidad 					= models.DecimalField( decimal_places = 2, max_digits = 5)
-# 	precios 					= models.DecimalField( decimal_places = 2, max_digits = 5)
-
-# 	class Meta:
-# 		verbose_name = ('ProductoEncargo')
-# 		verbose_name_plural = ('ProductoEncargos')
-
-# 	def __unicode__(self):
-# 		return str(self.vendedora)
 
 
 class Producto(models.Model):
@@ -174,8 +122,9 @@ class ProductoDPPA(models.Model):
 	cantidad 					= models.DecimalField( decimal_places = 2, max_digits = 5, default = 0)
 	precios 					= models.DecimalField( decimal_places = 2, max_digits = 5, default = 0)
 	fecha 						= models.DateField(auto_now_add = True)
-	cambios 		 			= models.DecimalField( max_digits=5, decimal_places=2, default = 0, null=True, blank=True)#este campo guarda los cambios de cantidades de mas o menos  en el producto de el pedido
-
+	cambios 		 			= models.DecimalField(max_digits=5, decimal_places=2, default = 0, null=True, blank=True)#este campo guarda los cambios de cantidades de mas o menos  en el producto de el pedido
+	compenzacion_can 			= models.DecimalField(max_digits=5, decimal_places=2, default=0)
+	compenzacion_tipo 			= models.CharField(max_length=3, default='')
 
 	class Meta:
 		verbose_name = ('ProductoDPPA')

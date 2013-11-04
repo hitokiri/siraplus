@@ -1,5 +1,9 @@
 $(document).ready(function() {
 	//--------------------------------------------------
+	//prueva
+	//----------------------------------------------------
+
+	//--------------------------------------------------
 	//toggle de la pizarra de entregas
 	//----------------------------------------------------
 	$( '.accion').click(function() {
@@ -14,7 +18,8 @@ $(document).ready(function() {
 	//--------------------------------------------------
 	//cambio de atributos de algunos campos y aplicacion de la mascara de rellenado para otros
 	//----------------------------------------------------
-	$('#id_fnacimiento , #id_fecha_ingreso, #id_fecha, #id_fecha_entrega').addClass('calendario');
+	$('#id_fnacimiento , #id_fecha_ingreso, #id_fecha, #id_fecha_entrega, #id_fecha_naciemiento, #id_fecha_contratacion').addClass('calendario');
+	$('#id_activo').addClass('switch-left');
 	$("#id_dui").mask("99999999-9",{placeholder:" "});
 	$("#id_telefono, #id_contacto_e_t").mask("9999-9999",{placeholder:" "});
 	$('#id_pmail, #id_mmail, #id_email').attr('type', 'email');
@@ -27,7 +32,7 @@ $(document).ready(function() {
 				changeYear: true,
 				dateFormat: "dd/mm/yy",
 				monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-				minDate:  Number(1),
+				minDate:  Number(0),
 				dayNamesMin: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
 				nextText:'Siguiente',
 				prevText:'Previo',

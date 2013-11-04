@@ -129,7 +129,7 @@ INSTALLED_APPS = (
     'master',
     'south',
     'debug_toolbar',
-    'django_extensions',
+    #'django_extensions',
     'produccion',
     'almacen',
 )

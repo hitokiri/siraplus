@@ -1,3 +1,4 @@
+
 header {
 
 	padding: .5em 0em .5em 0;
@@ -162,10 +163,7 @@ hr {
   /*listar vendedoras*/
 
 .negrito{
-    font-weight: bold;
-    font-size: 1em;
-    margin-right: .5em;
-    text-decoration: underline;
+
  }
 
 .lineas{
@@ -181,7 +179,6 @@ hr {
   color: white;
   text-align: center;
   font-weight: bold;
-  font-size: 1.2em;
   border-radius: 6px 6px 0 0;
 }
 /*vista editar*/
@@ -244,12 +241,13 @@ max-width: 30%;
     padding-bottom: 0;
 }
 .campo-entrega input[type="text"] {
-    width: 20px;
+    width: 20%;
 }
 
 /*pizarra grupo*/
 .pizarra_grupo_dentro{
   background-color: black;
+
 }
 .nombre_opcion_pizarra{
   border: solid 1px gold;
@@ -258,13 +256,14 @@ max-width: 30%;
 }
 
 .tipo_grupo_pizarra{
+  margin-top: 10px;
   padding: 0;
   margin-left: 0;
 }
 
 .tipo_grupo_pizarra input[type="text"]{
   border-color: green;
-  margin-top: 10px;
+
 }
 .tipo_grupo_pizarra1 input[type="text"]{
   border-color: red;
@@ -282,6 +281,27 @@ max-width: 30%;
   border-color: pink;
   margin-top: 10px;
 }
-#id_tipo{
+#id_grupo, #id_posicion{
   width: 60px;
+}
+
+
+#id_tipo{
+  width: 40%;
+}
+
+/*vista crear vendedora*/
+.categorias{
+  display: inline-block;
+  border: 1px solid black;
+  width: 49%;
+  float: left;
+
+}
+.subcategorias{
+  margin: 0;
+  padding: 0;
+  border: 1px solid blue;
+  width: 99%;
+
 }

@@ -3,6 +3,13 @@
 	{{vista}}
 {% endblock titulo %}
 {% block contenido %}
+<script>
+	function ventana(dato){
+		var lol = $(dato).attr('id');
+		window.alert(dato + lol);
+		return  false;
+	}
+</script>
 <u><h1>{{nombre_sistema.SYSTEM_NAME}} Pantalla de Inico</h1></u>
 {% if error %}
 	<div class=" alert alert-error error_login offset3"> <div class="icon-exclamation-sign"></div> {{error}}</div>
@@ -15,7 +22,11 @@
 		</form>
 	</div>
 </div>
+<a href="/agregar/cliente/tipo/" id ='hola' onclick="return ventana(this)">lol</a>
 {{meta2}}
+<div class="texto">
+
+</div>
 {% endblock contenido %}
 
 

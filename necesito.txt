@@ -289,3 +289,27 @@ class DemasDemenosForm(forms.Form):
 
 -->
 <!--secciones -->
+
+//------------------------------------------------------------------------------------------
+//        parte de pizarra entrega preview ajax jajjaa
+//-----------------------------------------------------------------------------------------
+<script>
+$(document).ready(function() {
+	var lol = '{% for form in formset %}\
+				{{form.de_mas}}\
+				{{form.de_menos}}\
+			{% endfor %}';
+	$('#prueva').html(lol);
+	$( '.accion').click(function() {
+		var padre = $(this).attr('name');
+		$( "clase22" ).css('display','none');
+  		$(padre).slideToggle( "slow" );
+	});
+});
+
+</script>
+
+//parte de el div que se modificara osea lo que se modifique debe de estar dentro de un div
+<div id="prueva">
+fff
+</div>

@@ -23,7 +23,7 @@
 <div class="row-fluid">
 	<div class="span5">
 		<div class="span12">
-			<h1>Grupo A</h1>
+			<h3><a href="{% url 'master:pizarra_grupos_cambios' "A" %}">Grupo A</a></h3>
 			<table class ='pizarra'>
 				<tr class='cabeza'>
 					<td>Nombre</td>
@@ -65,7 +65,7 @@
 		</div>
 		{% regroup seccionB by tipo  as todo  %}
 		<div class="span12">
-			<h1>Grupo B</h1>
+			<h3><a href="% url 'master:pizarra_grupos_cambios' "B" %}">Grupo B</a></h3>
 			<table class ='pizarra'>
 				<tr class='cabeza'>
 					<td>Nombre</td>
@@ -96,7 +96,7 @@
 	</div>
 	{% regroup seccionC by tipo  as todo  %}
 	<div class="span5">
-		<h1>Grupo C</h1>
+		<h3><a href="% url 'master:pizarra_grupos_cambios' "C" %}">Grupo C</a></h3>
 		<table class ='pizarra'>
 				<tr class='cabeza'>
 					<td>Nombre</td>

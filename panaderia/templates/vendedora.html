@@ -5,13 +5,10 @@
 	<script type="text/javascript" src= "{{STATIC_URL}}js/panaderia.js "></script>
 	<script type="text/javascript" src= "{{STATIC_URL}}js/jquery.ui.tooltip.js "></script>
 	<script type="text/javascript" src= "{{STATIC_URL}}js/jquery.maskedinput.js "></script>
+	<script src="{{STATIC_URL}}js/flatui-checkbox.js"></script>
 	{% endblock jqueriui %}
 {% block contenido %}
-<br>
-<br>
-<br>
-<br>
-<br>
+<!--
 	<form action="" method='post' enctype="multipart/form-data" >{%csrf_token%}
 		{{formulario}}
 		<footer id="footer" class =" navbar-fixed-bottom">
@@ -22,11 +19,35 @@
 					</div>
 			</footer>
 	</form>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+-->
+<div class="row-fluid vendedora_tabla">
+	<div class="categorias">
+	<div class="subcategorias">
+		{{formulario.tipo.label}}
+		{{formulario.tipo}}
+		valor
+		<label class="checkbox" for="checkbox1">
+
+            <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span></span><input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+
+          </label>
+
+	</div>
+	<div class="subcategorias">
+		{{formulario.fecha_contratacion.label}}
+		{{formulario.fecha_contratacion}}
+	</div>
+	</div>
+	<div class="categorias">
+	<div class="subcategorias">
+		{{formulario.fotografia.label}}
+		{{formulario.fotografia}}
+	</div>
+	<div class="subcategorias">
+		{{formulario.grupo.label}}
+		{{formulario.grupo}}
+	</div>
+	</div>
+</div>
 {% endblock contenido %}
 
